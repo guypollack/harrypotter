@@ -6,11 +6,23 @@ import { generateWord } from "../lib/helpers/generateWord";
 import { Keyboard } from "../components/Keyboard";
 import { allNames } from "../data/allNames";
 import { generateNameSequence } from "../lib/helpers/generateNameSequence";
+import { clickKey } from "../lib/helpers/clickKey";
 
 const nameSequence = generateNameSequence(allNames);
 
+const modifierKeys = [
+  "MetaLeft",
+  "AltLeft",
+  "ControlLeft",
+  "MetaRight",
+  "AltRight",
+  "ControlRight",
+];
+
 export function HomePage() {
   const secretWord = generateWord().toUpperCase();
+
+  const [modifierKeysDown, setModifierKeysDown] = useState<string[]>([]);
 
   const [remainingNames, setRemainingNames] = useState<string[]>(nameSequence);
 
@@ -19,6 +31,20 @@ export function HomePage() {
       (letter, index, self) => letter !== " " && self.indexOf(letter) === index
     )
   );
+
+  function handleKeyDown(ev: KeyboardEvent) {
+    if (modifierKeys.includes(ev.code) && !modifierKeysDown.includes(ev.code)) {
+      setModifierKeysDown((prev) => [...prev, ev.code]);
+    } else if (modifierKeysDown.length === 0) {
+      clickKey(ev.code);
+    }
+  }
+
+  function handleKeyUp(ev: KeyboardEvent) {
+    if (modifierKeys.includes(ev.code)) {
+      setModifierKeysDown((prev) => prev.filter((key) => key !== ev.code));
+    }
+  }
 
   function nextName() {
     const nextNameValue = remainingNames[1];
@@ -39,6 +65,15 @@ export function HomePage() {
     }
   }, [remainingLetters]);
 
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
+    };
+  });
+
   const [correctGuesses, setCorrectGuesses] = useState<string[]>([]);
   const [incorrectGuesses, setIncorrectGuesses] = useState<string[]>([]);
 
@@ -46,6 +81,7 @@ export function HomePage() {
   console.log(correctGuesses);
   console.log(incorrectGuesses);
   console.log(remainingNames);
+  console.log(modifierKeysDown);
 
   // console.log(generateNameSequence(allNames));
 
