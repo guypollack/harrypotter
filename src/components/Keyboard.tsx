@@ -49,49 +49,6 @@ export function Keyboard(props: {
   ];
 
   return (
-    // <div className="flex">
-    //   {keys.map((key, index) => (
-    //     <Key
-    //       letter={key}
-    //       backgroundColor={
-    //         props.correctGuesses.includes(key)
-    //           ? "bg-green-300"
-    //           : props.incorrectGuesses.includes(key)
-    //           ? "bg-red-300"
-    //           : "bg-white"
-    //       }
-    //       key={`key-${index}`}
-    //       onClick={
-    //         props.correctGuesses.includes(key) ||
-    //         props.incorrectGuesses.includes(key)
-    //           ? () => {}
-    //           : props.remainingLetters.includes(key)
-    //           ? () =>
-    //               handleGuess(
-    //                 key,
-    //                 props.setRemainingLetters,
-    //                 props.setCorrectGuesses
-    //               )
-    //           : () =>
-    //               handleGuess(
-    //                 key,
-    //                 props.setRemainingLetters,
-    //                 props.setIncorrectGuesses
-    //               )
-    //       }
-    //     />
-    //   ))}
-    // </div>
-    // <KeyboardRow
-    // keys={["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"]}
-    // remainingLetters={props.remainingLetters}
-    // setRemainingLetters={props.setRemainingLetters}
-    // correctGuesses={props.correctGuesses}
-    // setCorrectGuesses={props.setCorrectGuesses}
-    // incorrectGuesses={props.incorrectGuesses}
-    // setIncorrectGuesses={props.setIncorrectGuesses}
-    // handleGuess={handleGuess}
-    // />
     <div className="flex flex-col items-center relative">
       {keyboardRowLetters.map((row, index) => (
         <KeyboardRow
