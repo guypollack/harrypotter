@@ -92,7 +92,7 @@ export function Keyboard(props: {
     // setIncorrectGuesses={props.setIncorrectGuesses}
     // handleGuess={handleGuess}
     // />
-    <div>
+    <div className="flex flex-col items-center relative">
       {keyboardRowLetters.map((row, index) => (
         <KeyboardRow
           keys={row}
