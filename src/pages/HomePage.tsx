@@ -26,7 +26,7 @@ export function HomePage() {
   }
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       {/* <SecretWord /> */}
       <Name name="Albus Dumbledore" correctGuesses={correctGuesses} />
       {/* <div
