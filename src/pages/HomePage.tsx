@@ -24,6 +24,8 @@ export function HomePage() {
   const secretWord = generateWord().toUpperCase();
 
   const [score, setScore] = useState<number>(0);
+  const [scoreToAdd, setScoreToAdd] = useState<number>(0);
+  const [showScoreToAdd, setShowScoreToAdd] = useState<boolean>(false);
 
   const [modifierKeysDown, setModifierKeysDown] = useState<string[]>([]);
 
@@ -50,19 +52,23 @@ export function HomePage() {
   }
 
   function nextName() {
-    setScore(
-      (prev) => prev + calculateRoundScore(remainingNames[0], incorrectGuesses)
-    );
-    const nextNameValue = remainingNames[1];
-    setRemainingNames((prev) => prev.slice(1));
-    setRemainingLetters(
-      Array.from(nextNameValue).filter(
-        (letter, index, self) =>
-          letter !== " " && self.indexOf(letter) === index
-      )
-    );
-    setCorrectGuesses([]);
-    setIncorrectGuesses([]);
+    const roundScore = calculateRoundScore(remainingNames[0], incorrectGuesses);
+    setScoreToAdd(roundScore);
+    setShowScoreToAdd(true);
+    setTimeout(() => {
+      setScore((prev) => prev + roundScore);
+      const nextNameValue = remainingNames[1];
+      setRemainingNames((prev) => prev.slice(1));
+      setRemainingLetters(
+        Array.from(nextNameValue).filter(
+          (letter, index, self) =>
+            letter !== " " && self.indexOf(letter) === index
+        )
+      );
+      setCorrectGuesses([]);
+      setIncorrectGuesses([]);
+      setShowScoreToAdd(false);
+    }, 2000);
   }
 
   useEffect(() => {
@@ -100,7 +106,11 @@ export function HomePage() {
   return (
     <div className="flex flex-col items-center">
       {/* <SecretWord /> */}
-      <Scoreboard score={score} />
+      <Scoreboard
+        score={score}
+        scoreToAdd={scoreToAdd}
+        showScoreToAdd={showScoreToAdd}
+      />
       <Name name={remainingNames[0]} correctGuesses={correctGuesses} />
       {/* <div
         className="bg-blue-300 w-20 h-20 flex relative justify-center items-center"

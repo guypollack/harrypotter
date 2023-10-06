@@ -8,6 +8,17 @@ export function calculateRoundScore(name: string, incorrectGuesses: string[]) {
   return Math.round(100 - deductionValue * incorrectGuesses.length);
 }
 
-export function Scoreboard(props: { score: number }) {
-  return <h1>Score: {props.score}</h1>;
+export function Scoreboard(props: {
+  score: number;
+  scoreToAdd: number;
+  showScoreToAdd: boolean;
+}) {
+  return (
+    <h1>
+      Score: {props.score}
+      <span className="text-green-400">
+        {props.showScoreToAdd ? `+${props.scoreToAdd}` : ""}
+      </span>
+    </h1>
+  );
 }
