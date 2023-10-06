@@ -7,6 +7,7 @@ import { Keyboard } from "../components/Keyboard";
 import { allNames } from "../data/allNames";
 import { generateNameSequence } from "../lib/helpers/generateNameSequence";
 import { clickKey } from "../lib/helpers/clickKey";
+import { Scoreboard, calculateRoundScore } from "../components/Scoreboard";
 
 const nameSequence = generateNameSequence(allNames);
 
@@ -21,6 +22,8 @@ const modifierKeys = [
 
 export function HomePage() {
   const secretWord = generateWord().toUpperCase();
+
+  const [score, setScore] = useState<number>(0);
 
   const [modifierKeysDown, setModifierKeysDown] = useState<string[]>([]);
 
@@ -47,6 +50,9 @@ export function HomePage() {
   }
 
   function nextName() {
+    setScore(
+      (prev) => prev + calculateRoundScore(remainingNames[0], incorrectGuesses)
+    );
     const nextNameValue = remainingNames[1];
     setRemainingNames((prev) => prev.slice(1));
     setRemainingLetters(
@@ -77,11 +83,13 @@ export function HomePage() {
   const [correctGuesses, setCorrectGuesses] = useState<string[]>([]);
   const [incorrectGuesses, setIncorrectGuesses] = useState<string[]>([]);
 
-  console.log(remainingLetters);
-  console.log(correctGuesses);
-  console.log(incorrectGuesses);
-  console.log(remainingNames);
-  console.log(modifierKeysDown);
+  // console.log(remainingLetters);
+  // console.log(correctGuesses);
+  // console.log(incorrectGuesses);
+  // console.log(remainingNames);
+  // console.log(modifierKeysDown);
+
+  console.log(calculateRoundScore("HARRY POTTER", ["B", "C", "D"]));
 
   // console.log(generateNameSequence(allNames));
 
@@ -92,6 +100,7 @@ export function HomePage() {
   return (
     <div className="flex flex-col items-center">
       {/* <SecretWord /> */}
+      <Scoreboard score={score} />
       <Name name={remainingNames[0]} correctGuesses={correctGuesses} />
       {/* <div
         className="bg-blue-300 w-20 h-20 flex relative justify-center items-center"
