@@ -4,12 +4,18 @@ import { Name } from "../components/Name";
 import { SecretWord } from "../components/SecretWord";
 import { generateWord } from "../lib/helpers/generateWord";
 import { Keyboard } from "../components/Keyboard";
+import { allNames } from "../data/allNames";
+import { generateNameSequence } from "../lib/helpers/generateNameSequence";
+
+const nameSequence = generateNameSequence(allNames);
 
 export function HomePage() {
   const secretWord = generateWord().toUpperCase();
 
+  const [remainingNames, setRemainingNames] = useState<string[]>(nameSequence);
+
   const [remainingLetters, setRemainingLetters] = useState<string[]>(
-    Array.from(secretWord).filter(
+    Array.from(remainingNames[0]).filter(
       (letter, index, self) => letter !== " " && self.indexOf(letter) === index
     )
   );
@@ -20,6 +26,9 @@ export function HomePage() {
   console.log(remainingLetters);
   console.log(correctGuesses);
   console.log(incorrectGuesses);
+  console.log(remainingNames);
+
+  // console.log(generateNameSequence(allNames));
 
   function handleCorrectGuess(letter: string) {
     alert(letter);
@@ -28,7 +37,7 @@ export function HomePage() {
   return (
     <div className="flex flex-col items-center">
       {/* <SecretWord /> */}
-      <Name name="Albus Dumbledore" correctGuesses={correctGuesses} />
+      <Name name={remainingNames[0]} correctGuesses={correctGuesses} />
       {/* <div
         className="bg-blue-300 w-20 h-20 flex relative justify-center items-center"
         onClick={() => alert("Clicked")}
