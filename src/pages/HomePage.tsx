@@ -20,6 +20,25 @@ export function HomePage() {
     )
   );
 
+  function nextName() {
+    const nextNameValue = remainingNames[1];
+    setRemainingNames((prev) => prev.slice(1));
+    setRemainingLetters(
+      Array.from(nextNameValue).filter(
+        (letter, index, self) =>
+          letter !== " " && self.indexOf(letter) === index
+      )
+    );
+    setCorrectGuesses([]);
+    setIncorrectGuesses([]);
+  }
+
+  useEffect(() => {
+    if (remainingLetters.length === 0) {
+      nextName();
+    }
+  }, [remainingLetters]);
+
   const [correctGuesses, setCorrectGuesses] = useState<string[]>([]);
   const [incorrectGuesses, setIncorrectGuesses] = useState<string[]>([]);
 
