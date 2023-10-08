@@ -97,7 +97,7 @@ export function HomePage() {
     return () => {
       clearInterval(timerInterval);
     };
-  });
+  }, []);
 
   const [correctGuesses, setCorrectGuesses] = useState<string[]>([]);
   const [incorrectGuesses, setIncorrectGuesses] = useState<string[]>([]);
