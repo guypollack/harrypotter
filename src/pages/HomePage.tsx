@@ -70,7 +70,7 @@ export function HomePage() {
       setCorrectGuesses([]);
       setIncorrectGuesses([]);
       setShowScoreToAdd(false);
-    }, 2000);
+    }, 1500);
   }
 
   useEffect(() => {
