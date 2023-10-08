@@ -1,5 +1,11 @@
 import { Key } from "./Key";
 
+const keyboardRowLetters = [
+  ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+  ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
+  ["Z", "X", "C", "V", "B", "N", "M"],
+];
+
 interface HandleGuessProps {
   letter: string;
   setRemainingLetters: React.Dispatch<React.SetStateAction<string[]>>;
@@ -36,9 +42,13 @@ const determineClickHandler = (
   remainingLetters: string[],
   setRemainingLetters: React.Dispatch<React.SetStateAction<string[]>>,
   handleGuess: (props: HandleGuessProps) => void,
-  gameOver: boolean
+  gameOver: boolean,
+  showScoreToAdd: boolean
 ) =>
-  gameOver || correctGuesses.includes(key) || incorrectGuesses.includes(key)
+  showScoreToAdd ||
+  gameOver ||
+  correctGuesses.includes(key) ||
+  incorrectGuesses.includes(key)
     ? () => {}
     : remainingLetters.includes(key)
     ? () =>
@@ -62,13 +72,8 @@ export function Keyboard(props: {
   incorrectGuesses: string[];
   setIncorrectGuesses: React.Dispatch<React.SetStateAction<string[]>>;
   gameOver: boolean;
+  showScoreToAdd: boolean;
 }) {
-  const keyboardRowLetters = [
-    ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
-    ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
-    ["Z", "X", "C", "V", "B", "N", "M"],
-  ];
-
   return (
     <div className="flex flex-col items-center relative">
       {keyboardRowLetters.map((row, rowIndex) => (
@@ -85,7 +90,8 @@ export function Keyboard(props: {
                 props.remainingLetters,
                 props.setRemainingLetters,
                 handleGuess,
-                props.gameOver
+                props.gameOver,
+                props.showScoreToAdd
               )}
               backgroundColor={determineBackgroundColor(
                 letter,

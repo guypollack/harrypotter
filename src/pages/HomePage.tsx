@@ -125,6 +125,27 @@ export function HomePage() {
     alert(letter);
   }
 
+  function newGame() {
+    setScore(0);
+    setScoreToAdd(0);
+    setShowScoreToAdd(false);
+    setRemainingSeconds(60);
+    startTimer();
+    setGameOver(false);
+    setRemainingNames(() => {
+      const nameSequence = generateNameSequence(allNames);
+      setRemainingLetters(
+        Array.from(nameSequence[0]).filter(
+          (letter, index, self) =>
+            letter !== " " && self.indexOf(letter) === index
+        )
+      );
+      return nameSequence;
+    });
+    setCorrectGuesses([]);
+    setIncorrectGuesses([]);
+  }
+
   return (
     <div className="flex flex-col items-center">
       <ScoreAndTimeContainer
@@ -132,6 +153,8 @@ export function HomePage() {
         scoreToAdd={scoreToAdd}
         showScoreToAdd={showScoreToAdd}
         remainingSeconds={remainingSeconds}
+        onNewGame={newGame}
+        gameOver={gameOver}
       />
       <Name
         name={remainingNames[0]}
@@ -153,6 +176,7 @@ export function HomePage() {
           incorrectGuesses,
           setIncorrectGuesses,
           gameOver,
+          showScoreToAdd,
         }}
       />
     </div>

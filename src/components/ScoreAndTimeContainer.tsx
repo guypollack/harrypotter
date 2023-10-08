@@ -6,6 +6,8 @@ export function ScoreAndTimeContainer(props: {
   scoreToAdd: number;
   showScoreToAdd: boolean;
   remainingSeconds: number;
+  onNewGame: () => void;
+  gameOver: boolean;
 }) {
   return (
     <div className="w-6/12 flex justify-between text-3xl">
@@ -14,7 +16,11 @@ export function ScoreAndTimeContainer(props: {
         scoreToAdd={props.scoreToAdd}
         showScoreToAdd={props.showScoreToAdd}
       />
-      <Timer remainingSeconds={props.remainingSeconds} />
+      <Timer
+        remainingSeconds={props.remainingSeconds}
+        onNewGame={props.onNewGame}
+        gameOver={props.gameOver}
+      />
     </div>
   );
 }
