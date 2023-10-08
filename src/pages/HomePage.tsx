@@ -7,6 +7,7 @@ import { generateNameSequence } from "../lib/generateNameSequence";
 import { clickKey } from "../lib/clickKey";
 import { Scoreboard, calculateRoundScore } from "../components/Scoreboard";
 import { Timer } from "../components/Timer";
+import { ScoreAndTimeContainer } from "../components/ScoreAndTimeContainer";
 
 const nameSequence = generateNameSequence(allNames);
 
@@ -117,12 +118,12 @@ export function HomePage() {
 
   return (
     <div className="flex flex-col items-center">
-      <Scoreboard
+      <ScoreAndTimeContainer
         score={score}
         scoreToAdd={scoreToAdd}
         showScoreToAdd={showScoreToAdd}
+        remainingSeconds={remainingSeconds}
       />
-      <Timer remainingSeconds={remainingSeconds} />
       <Name name={remainingNames[0]} correctGuesses={correctGuesses} />
       {/* <div
         className="bg-blue-300 w-20 h-20 flex relative justify-center items-center"
