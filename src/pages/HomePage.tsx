@@ -88,7 +88,7 @@ export function HomePage() {
     };
   });
 
-  useEffect(() => {
+  function startTimer() {
     const timerInterval = setInterval(() => {
       setRemainingSeconds((prev) => {
         if (prev === 0) {
@@ -102,6 +102,10 @@ export function HomePage() {
     return () => {
       clearInterval(timerInterval);
     };
+  }
+
+  useEffect(() => {
+    startTimer();
   }, []);
 
   const [correctGuesses, setCorrectGuesses] = useState<string[]>([]);
