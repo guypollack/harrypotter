@@ -108,7 +108,7 @@ export function HomePage() {
   // console.log(remainingNames);
   // console.log(modifierKeysDown);
 
-  console.log(calculateRoundScore("HARRY POTTER", ["B", "C", "D"]));
+  // console.log(calculateRoundScore("HARRY POTTER", ["B", "C", "D"]));
 
   // console.log(generateNameSequence(allNames));
 
