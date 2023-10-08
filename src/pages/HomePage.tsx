@@ -27,6 +27,8 @@ export function HomePage() {
 
   const [remainingSeconds, setRemainingSeconds] = useState<number>(60);
 
+  const [gameOver, setGameOver] = useState<boolean>(false);
+
   const [modifierKeysDown, setModifierKeysDown] = useState<string[]>([]);
 
   const [remainingNames, setRemainingNames] = useState<string[]>(nameSequence);
@@ -127,7 +129,11 @@ export function HomePage() {
         showScoreToAdd={showScoreToAdd}
         remainingSeconds={remainingSeconds}
       />
-      <Name name={remainingNames[0]} correctGuesses={correctGuesses} />
+      <Name
+        name={remainingNames[0]}
+        correctGuesses={correctGuesses}
+        gameOver={gameOver}
+      />
       {/* <div
         className="bg-blue-300 w-20 h-20 flex relative justify-center items-center"
         onClick={() => alert("Clicked")}
@@ -142,6 +148,7 @@ export function HomePage() {
           setCorrectGuesses,
           incorrectGuesses,
           setIncorrectGuesses,
+          gameOver,
         }}
       />
     </div>
