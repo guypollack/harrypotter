@@ -86,10 +86,6 @@ export function HomePage() {
     };
   });
 
-  function decrementRemainingSeconds(
-    setRemainingSeconds: React.Dispatch<React.SetStateAction<string[]>>
-  ) {}
-
   useEffect(() => {
     const timerInterval = setInterval(() => {
       setRemainingSeconds((prev) => {
