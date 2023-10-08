@@ -92,7 +92,14 @@ export function HomePage() {
 
   useEffect(() => {
     const timerInterval = setInterval(() => {
-      setRemainingSeconds((prev) => prev - 1);
+      setRemainingSeconds((prev) => {
+        if (prev === 0) {
+          clearInterval(timerInterval);
+          setGameOver(true);
+          return prev;
+        }
+        return prev - 1;
+      });
     }, 1000);
     return () => {
       clearInterval(timerInterval);
