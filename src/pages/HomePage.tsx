@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Letter } from "../components/Letter";
 import { Name } from "../components/Name";
-import { SecretWord } from "../components/SecretWord";
 import { Keyboard } from "../components/Keyboard";
 import { allNames } from "../data/allNames";
 import { generateNameSequence } from "../lib/generateNameSequence";
@@ -118,7 +117,6 @@ export function HomePage() {
 
   return (
     <div className="flex flex-col items-center">
-      {/* <SecretWord /> */}
       <Scoreboard
         score={score}
         scoreToAdd={scoreToAdd}
