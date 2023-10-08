@@ -1,6 +1,10 @@
 import { Word } from "./Word";
 
-export function Name(props: { name: string; correctGuesses: string[] }) {
+export function Name(props: {
+  name: string;
+  correctGuesses: string[];
+  gameOver: boolean;
+}) {
   const words = props.name.toUpperCase().split(" ");
   return (
     <div className="flex flex-wrap justify-center">
@@ -9,6 +13,7 @@ export function Name(props: { name: string; correctGuesses: string[] }) {
           word={word}
           correctGuesses={props.correctGuesses}
           key={`word-${index}`}
+          gameOver={props.gameOver}
         />
       ))}
     </div>

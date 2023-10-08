@@ -16,9 +16,12 @@ function handleGuess(props: HandleGuessProps) {
 const determineBackgroundColor = (
   key: string,
   correctGuesses: string[],
-  incorrectGuesses: string[]
+  incorrectGuesses: string[],
+  gameOver: boolean
 ) =>
-  correctGuesses.includes(key)
+  gameOver
+    ? "bg-gray-500"
+    : correctGuesses.includes(key)
     ? "bg-green-300"
     : incorrectGuesses.includes(key)
     ? "bg-red-300"
@@ -32,9 +35,10 @@ const determineClickHandler = (
   setIncorrectGuesses: React.Dispatch<React.SetStateAction<string[]>>,
   remainingLetters: string[],
   setRemainingLetters: React.Dispatch<React.SetStateAction<string[]>>,
-  handleGuess: (props: HandleGuessProps) => void
+  handleGuess: (props: HandleGuessProps) => void,
+  gameOver: boolean
 ) =>
-  correctGuesses.includes(key) || incorrectGuesses.includes(key)
+  gameOver || correctGuesses.includes(key) || incorrectGuesses.includes(key)
     ? () => {}
     : remainingLetters.includes(key)
     ? () =>
@@ -57,6 +61,7 @@ export function Keyboard(props: {
   setCorrectGuesses: React.Dispatch<React.SetStateAction<string[]>>;
   incorrectGuesses: string[];
   setIncorrectGuesses: React.Dispatch<React.SetStateAction<string[]>>;
+  gameOver: boolean;
 }) {
   const keyboardRowLetters = [
     ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
@@ -66,9 +71,9 @@ export function Keyboard(props: {
 
   return (
     <div className="flex flex-col items-center relative">
-      {keyboardRowLetters.map((row, index) => (
+      {keyboardRowLetters.map((row, rowIndex) => (
         <div className="flex">
-          {row.map((letter) => (
+          {row.map((letter, letterIndex) => (
             <Key
               letter={letter}
               onClick={determineClickHandler(
@@ -79,14 +84,16 @@ export function Keyboard(props: {
                 props.setIncorrectGuesses,
                 props.remainingLetters,
                 props.setRemainingLetters,
-                handleGuess
+                handleGuess,
+                props.gameOver
               )}
               backgroundColor={determineBackgroundColor(
                 letter,
                 props.correctGuesses,
-                props.incorrectGuesses
+                props.incorrectGuesses,
+                props.gameOver
               )}
-              key={`key-${index}`}
+              key={`keyboard-row${[rowIndex]}-key-${letterIndex}`}
             />
           ))}
         </div>
