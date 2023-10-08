@@ -14,11 +14,11 @@ export function Scoreboard(props: {
   showScoreToAdd: boolean;
 }) {
   return (
-    <h1>
+    <div>
       Score: {props.score}
-      <span className="text-green-400">
+      <span className="text-green-400 ml-1">
         {props.showScoreToAdd ? `+${props.scoreToAdd}` : ""}
       </span>
-    </h1>
+    </div>
   );
 }
