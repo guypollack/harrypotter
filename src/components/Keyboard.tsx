@@ -1,28 +1,4 @@
 import { Key } from "./Key";
-import { KeyboardRow } from "./KeyboardRow";
-
-function handleClick(ev: React.MouseEvent<HTMLElement>, letter: string) {
-  console.log(ev.target);
-  console.log(letter);
-}
-
-function handleCorrectGuess(
-  letter: string,
-  setRemainingLetters: React.Dispatch<React.SetStateAction<string[]>>,
-  setCorrectGuesses: React.Dispatch<React.SetStateAction<string[]>>
-) {
-  setRemainingLetters((prev) => prev.filter((value) => value !== letter));
-  setCorrectGuesses((prev) => [...prev, letter]);
-}
-
-function handleIncorrectGuess(
-  letter: string,
-  setRemainingLetters: React.Dispatch<React.SetStateAction<string[]>>,
-  setIncorrectGuesses: React.Dispatch<React.SetStateAction<string[]>>
-) {
-  setRemainingLetters((prev) => prev.filter((value) => value !== letter));
-  setIncorrectGuesses((prev) => [...prev, letter]);
-}
 
 interface HandleGuessProps {
   letter: string;
@@ -82,7 +58,6 @@ export function Keyboard(props: {
   incorrectGuesses: string[];
   setIncorrectGuesses: React.Dispatch<React.SetStateAction<string[]>>;
 }) {
-  const keys = ["A", "B", "C"];
   const keyboardRowLetters = [
     ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
     ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
