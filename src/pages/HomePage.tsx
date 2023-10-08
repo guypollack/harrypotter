@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { Letter } from "../components/Letter";
 import { Name } from "../components/Name";
 import { SecretWord } from "../components/SecretWord";
-import { generateWord } from "../lib/helpers/generateWord";
 import { Keyboard } from "../components/Keyboard";
 import { allNames } from "../data/allNames";
-import { generateNameSequence } from "../lib/helpers/generateNameSequence";
-import { clickKey } from "../lib/helpers/clickKey";
+import { generateNameSequence } from "../lib/generateNameSequence";
+import { clickKey } from "../lib/clickKey";
 import { Scoreboard, calculateRoundScore } from "../components/Scoreboard";
+import { Timer } from "../components/Timer";
 
 const nameSequence = generateNameSequence(allNames);
 
@@ -21,11 +21,11 @@ const modifierKeys = [
 ];
 
 export function HomePage() {
-  const secretWord = generateWord().toUpperCase();
-
   const [score, setScore] = useState<number>(0);
   const [scoreToAdd, setScoreToAdd] = useState<number>(0);
   const [showScoreToAdd, setShowScoreToAdd] = useState<boolean>(false);
+
+  const [remainingSeconds, setRemainingSeconds] = useState<number>(60);
 
   const [modifierKeysDown, setModifierKeysDown] = useState<string[]>([]);
 
@@ -86,6 +86,19 @@ export function HomePage() {
     };
   });
 
+  function decrementRemainingSeconds(
+    setRemainingSeconds: React.Dispatch<React.SetStateAction<string[]>>
+  ) {}
+
+  useEffect(() => {
+    const timerInterval = setInterval(() => {
+      setRemainingSeconds((prev) => prev - 1);
+    }, 1000);
+    return () => {
+      clearInterval(timerInterval);
+    };
+  });
+
   const [correctGuesses, setCorrectGuesses] = useState<string[]>([]);
   const [incorrectGuesses, setIncorrectGuesses] = useState<string[]>([]);
 
@@ -111,6 +124,7 @@ export function HomePage() {
         scoreToAdd={scoreToAdd}
         showScoreToAdd={showScoreToAdd}
       />
+      <Timer remainingSeconds={remainingSeconds} />
       <Name name={remainingNames[0]} correctGuesses={correctGuesses} />
       {/* <div
         className="bg-blue-300 w-20 h-20 flex relative justify-center items-center"
