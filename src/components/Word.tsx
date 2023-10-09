@@ -7,7 +7,7 @@ export function Word(props: {
 }) {
   const letters = Array.from(props.word);
   return (
-    <div className="flex mr-10 mb-5">
+    <div className="flex mx-5 mb-5">
       {letters.map((letter, index) => (
         <Letter
           letter={letter}

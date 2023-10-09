@@ -75,7 +75,7 @@ export function Keyboard(props: {
   showScoreToAdd: boolean;
 }) {
   return (
-    <div className="flex flex-col items-center relative">
+    <div className="w-full absolute bottom-0 sm:w-6/12 sm:relative sm:bottom-auto flex flex-col items-center ">
       {keyboardRowLetters.map((row, rowIndex) => (
         <div className="flex">
           {row.map((letter, letterIndex) => (
