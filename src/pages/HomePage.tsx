@@ -160,7 +160,10 @@ export function HomePage() {
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center gap-y-10">
+      <h1 className="font-potter mt-8 text-3xl">
+        Afik's Harry Potter Spell-ing Game!
+      </h1>
       <ScoreAndTimeContainer
         score={score}
         scoreToAdd={scoreToAdd}

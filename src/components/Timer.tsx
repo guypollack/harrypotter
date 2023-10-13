@@ -8,7 +8,7 @@ export function Timer(props: {
   return (
     <div className="flex mb-5">
       <div
-        className={`flex items-center mr-2 text-xl bg-gray-100 border rounded ${
+        className={`flex items-center mr-2 text-xl text-black bg-gray-300 px-2 border rounded ${
           props.gameOver ? "" : "hidden"
         }`}
         onClick={() => props.onNewGame()}
