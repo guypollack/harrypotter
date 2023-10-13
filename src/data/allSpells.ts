@@ -1,4 +1,4 @@
-export const allSpells = [
+export const allSpells: string[] = [
   "AVADA KEDAVRA",
   "CRUCIO",
   "IMPERIO",

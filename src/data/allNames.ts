@@ -1,4 +1,4 @@
-export const allNames = [
+export const allNames: string[] = [
   "HARRY POTTER",
   "RON WEASLEY",
   "HERMIONE GRANGER",
