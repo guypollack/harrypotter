@@ -15,7 +15,7 @@ import { GrowingBoxesContainer } from "../components/GrowingBoxesContainer";
 
 const nameSequence = generateNameSequence2();
 
-const modifierKeys = [
+const MODIFIER_KEYS = [
   "MetaLeft",
   "AltLeft",
   "ControlLeft",
@@ -24,12 +24,14 @@ const modifierKeys = [
   "ControlRight",
 ];
 
+const TIME_LIMIT = 4;
+
 export function HomePage() {
   const [score, setScore] = useState<number>(0);
   const [scoreToAdd, setScoreToAdd] = useState<number>(0);
   const [showScoreToAdd, setShowScoreToAdd] = useState<boolean>(false);
 
-  const [remainingSeconds, setRemainingSeconds] = useState<number>(6000);
+  const [remainingSeconds, setRemainingSeconds] = useState<number>(TIME_LIMIT);
 
   const [gameOver, setGameOver] = useState<boolean>(false);
 
@@ -45,7 +47,10 @@ export function HomePage() {
   );
 
   function handleKeyDown(ev: KeyboardEvent) {
-    if (modifierKeys.includes(ev.code) && !modifierKeysDown.includes(ev.code)) {
+    if (
+      MODIFIER_KEYS.includes(ev.code) &&
+      !modifierKeysDown.includes(ev.code)
+    ) {
       setModifierKeysDown((prev) => [...prev, ev.code]);
     } else if (modifierKeysDown.length === 0) {
       clickKey(ev.code);
@@ -53,7 +58,7 @@ export function HomePage() {
   }
 
   function handleKeyUp(ev: KeyboardEvent) {
-    if (modifierKeys.includes(ev.code)) {
+    if (MODIFIER_KEYS.includes(ev.code)) {
       setModifierKeysDown((prev) => prev.filter((key) => key !== ev.code));
     }
   }
@@ -137,7 +142,7 @@ export function HomePage() {
     setScore(0);
     setScoreToAdd(0);
     setShowScoreToAdd(false);
-    setRemainingSeconds(60);
+    setRemainingSeconds(TIME_LIMIT);
     startTimer();
     setGameOver(false);
     setRemainingNames(() => {
