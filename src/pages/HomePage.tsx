@@ -24,7 +24,7 @@ const MODIFIER_KEYS = [
   "ControlRight",
 ];
 
-const TIME_LIMIT = 4;
+const TIME_LIMIT = 300;
 
 export function HomePage() {
   const [score, setScore] = useState<number>(0);
