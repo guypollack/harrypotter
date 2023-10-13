@@ -3,13 +3,17 @@ import { Letter } from "../components/Letter";
 import { Name } from "../components/Name";
 import { Keyboard } from "../components/Keyboard";
 import { allNames } from "../data/allNames";
-import { generateNameSequence } from "../lib/generateNameSequence";
+import {
+  generateNameSequence,
+  generateNameSequence2,
+} from "../lib/generateNameSequence";
 import { clickKey } from "../lib/clickKey";
 import { Scoreboard, calculateRoundScore } from "../components/Scoreboard";
 import { Timer } from "../components/Timer";
 import { ScoreAndTimeContainer } from "../components/ScoreAndTimeContainer";
+import { GrowingBoxesContainer } from "../components/GrowingBoxesContainer";
 
-const nameSequence = generateNameSequence(allNames);
+const nameSequence = generateNameSequence2();
 
 const modifierKeys = [
   "MetaLeft",
@@ -25,16 +29,17 @@ export function HomePage() {
   const [scoreToAdd, setScoreToAdd] = useState<number>(0);
   const [showScoreToAdd, setShowScoreToAdd] = useState<boolean>(false);
 
-  const [remainingSeconds, setRemainingSeconds] = useState<number>(60);
+  const [remainingSeconds, setRemainingSeconds] = useState<number>(6000);
 
   const [gameOver, setGameOver] = useState<boolean>(false);
 
   const [modifierKeysDown, setModifierKeysDown] = useState<string[]>([]);
 
-  const [remainingNames, setRemainingNames] = useState<string[]>(nameSequence);
+  const [remainingNames, setRemainingNames] =
+    useState<[string, string][]>(nameSequence);
 
   const [remainingLetters, setRemainingLetters] = useState<string[]>(
-    Array.from(remainingNames[0]).filter(
+    Array.from(remainingNames[0][1]).filter(
       (letter, index, self) => letter !== " " && self.indexOf(letter) === index
     )
   );
@@ -54,12 +59,15 @@ export function HomePage() {
   }
 
   function nextName() {
-    const roundScore = calculateRoundScore(remainingNames[0], incorrectGuesses);
+    const roundScore = calculateRoundScore(
+      remainingNames[0][1],
+      incorrectGuesses
+    );
     setScoreToAdd(roundScore);
     setShowScoreToAdd(true);
     setTimeout(() => {
       setScore((prev) => prev + roundScore);
-      const nextNameValue = remainingNames[1];
+      const nextNameValue = remainingNames[1][1];
       setRemainingNames((prev) => prev.slice(1));
       setRemainingLetters(
         Array.from(nextNameValue).filter(
@@ -133,9 +141,9 @@ export function HomePage() {
     startTimer();
     setGameOver(false);
     setRemainingNames(() => {
-      const nameSequence = generateNameSequence(allNames);
+      const nameSequence = generateNameSequence2();
       setRemainingLetters(
-        Array.from(nameSequence[0]).filter(
+        Array.from(nameSequence[0][1]).filter(
           (letter, index, self) =>
             letter !== " " && self.indexOf(letter) === index
         )
@@ -157,7 +165,8 @@ export function HomePage() {
         gameOver={gameOver}
       />
       <Name
-        name={remainingNames[0]}
+        name={remainingNames[0][1]}
+        category={remainingNames[0][0]}
         correctGuesses={correctGuesses}
         gameOver={gameOver}
       />
@@ -179,6 +188,7 @@ export function HomePage() {
           showScoreToAdd,
         }}
       />
+      {/* <GrowingBoxesContainer /> */}
     </div>
   );
 }
