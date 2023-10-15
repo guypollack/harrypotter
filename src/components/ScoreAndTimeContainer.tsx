@@ -10,7 +10,7 @@ export function ScoreAndTimeContainer(props: {
   gameOver: boolean;
 }) {
   return (
-    <div className="w-full sm:w-6/12 flex justify-between text-3xl">
+    <div className="w-11/12 sm:w-6/12 flex justify-between text-3xl">
       <Scoreboard
         score={props.score}
         scoreToAdd={props.scoreToAdd}
