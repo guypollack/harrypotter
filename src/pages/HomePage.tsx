@@ -12,6 +12,7 @@ import { Scoreboard, calculateRoundScore } from "../components/Scoreboard";
 import { Timer } from "../components/Timer";
 import { ScoreAndTimeContainer } from "../components/ScoreAndTimeContainer";
 import { GrowingBoxesContainer } from "../components/GrowingBoxesContainer";
+import { MouseTrail } from "@stichiboi/react-elegant-mouse-trail";
 
 const nameSequence = generateNameSequence2();
 
@@ -197,6 +198,12 @@ export function HomePage() {
         }}
       />
       {/* <GrowingBoxesContainer /> */}
+      <MouseTrail
+        strokeColor={"#FF8541"}
+        lineWidthStart={10}
+        lineDuration={5}
+        lag={0.5}
+      />
     </div>
   );
 }
