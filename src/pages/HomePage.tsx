@@ -198,12 +198,12 @@ export function HomePage() {
         }}
       />
       {/* <GrowingBoxesContainer /> */}
-      <MouseTrail
+      {/* <MouseTrail
         strokeColor={"#FF8541"}
         lineWidthStart={10}
         lineDuration={5}
         lag={0.5}
-      />
+      /> */}
     </div>
   );
 }
